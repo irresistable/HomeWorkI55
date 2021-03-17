@@ -6,7 +6,6 @@ namespace HomeWork5
     {
         static void Main(string[] args)
         {
-
             int correctInput = 0;
             string output;
 
@@ -16,16 +15,16 @@ namespace HomeWork5
             for (; ; )
             {
                 var userInput = Console.ReadKey();
-                if (char.IsDigit(userInput.KeyChar))
+                if (char.IsDigit(userInput.KeyChar)) //проверяем чар на циферность
                 {
-                    correctInput = int.Parse(userInput.KeyChar.ToString());
-                    if ((correctInput > 0) && (correctInput < 5))
+                    correctInput = int.Parse(userInput.KeyChar.ToString());//кастуем к инту
+                    if(correctInput is >0 and <5)// если не выставить совместимость с Net.5 не работает
                     { break; }
                 }
+                Console.WriteLine("\nError. Retype please");
             }
-            TaskI55 query = new TaskI55(correctInput-1, out output); //создаем экземпляр и кидаем туда ввод от пользователя
-
-            Console.WriteLine($"\nCorresponding to {correctInput} suit is {output}");
+            new TaskI55(correctInput-1, out output); //инициализируем(??) экземпляр и кидаем туда ввод от пользователя
+            Console.WriteLine($"\nCorresponding to index {correctInput} suit is {output}");
             Console.ReadKey();
     }
     public class TaskI55 
@@ -39,6 +38,7 @@ namespace HomeWork5
             }
             public TaskI55(int input, out string output) //принимаем инт и выкидываем стринг из перечисления
             {
+                //output = ((Suits)input).ToString; не хочет
                 var suit = (Suits)Enum.GetValues(typeof(Suits)).GetValue(input); //спиздил кусок кода
                 output = suit.ToString();
                 return;
